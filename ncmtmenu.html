@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Menu</title>
+    <link rel="stylesheet" type="text/css" href="ncmt.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .cart-icon .item-count {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+        .cart-modal .cart-container {
+            background-color: white;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        .cart-modal .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .cart-modal .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .cart-modal .cart-item .item-details {
+            flex-grow: 1;
+            margin-left: 6px;
+        }
+        .cart-modal .cart-item .item-price {
+            font-weight: bold;
+            color: #f39c12;
+        }
+        .cart-modal .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .cart-modal .cart-footer .total-price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .cart-modal .cart-footer .checkout-btn {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cart-modal .close-btn {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            font-size: 45px;
+            cursor: pointer;
+            color: #ff8c00;
+        }
+        .product-box {
+            backdrop-filter: blur(90px);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            width: 200px;
+            margin: 15px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .product-box:hover {
+            transform: translateY(-10px);
+        }
+        .product-box img {
+            width: 100%;
+            border-radius: 10px;
+            height: 200px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+         }
+        .product-box h3 {
+            color: #faebd7;
+            margin: 10px 0;
+        }
+        .product-box p {
+            font-size: 14px;
+            color: #e86100;
+        }
+        .product-box span {
+            font-weight: bold;
+            font-size: 18px;
+            color: #f39c12;
+        }
+        .product-box button {
+            background-color: #ffa500;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .product-box button:hover {
+            background-color: #e67e22;
+        }
+
+ 
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .product-wrapper {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+    
+        #menu-section {
+            text-align: center;
+        }
+        .category-nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .category-nav button {
+            letter-spacing: 2px;
+            font-family: monospace;
+            font-size: 19px;
+            background-color: #f39c12;
+            color: #321414;
+            padding: 15px 60px;
+            border: none;
+            margin: 0 20px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+            
+        }
+        .category-nav button:hover {
+            background-color: #e67e22;
+        }
+
+ 
+
+ .cart-footer {
+    background-color: #e0d9b0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+      }
+
+.cart-footer .checkout-btn {
+    background-color: #8a795d; 
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cart-footer .checkout-btn:hover {
+    background-color: #6f5e42; 
+}
+.cart-container h2{
+    color: #592720 ;
+    font-weight: bold;
+}
+.selec {
+    font-size: 40px;
+    background-color:#daa520;
+    display: inline-block;
+    border: 5px solid #8b4513;
+    padding:0 30px;
+    border-radius: 10px;
+    color: #3c1414 ;
+    font-family: 'Arial Black', sans-serif;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><img src="sidelogov2.png" alt="Logo" class="logo"></a>
+                <li><a href="index.html">Home</a></li>
+                <li> </li>
+                <li><a href="ncmtaboutus.html">About Us</a></li>
+                <li> </li>
+                <li><a href="ncmtmenu.html">Our Selections</a></li>
+                <li> </li>
+                <li><a href="ncmtlogin.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <button class="cart-icon" onclick="toggleCart()">
+        🛒
+        <span class="item-count" id="cartItemCount">0</span>
+    </button>
+
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-container">
+            <button class="close-btn" onclick="toggleCart()">×</button>
+            <h2>Your Cart</h2>
+            <br>
+            <div id="cartItems"></div>
+            <div class="cart-footer">
+                <span class="total-price" id="totalPrice">Total: ₱0.00</span>
+                <button class="checkout-btn" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+      <section id="menu-section">
+        <h1 class="selec">OUR SELECTIONS</h1>
+
+        <div class="category-nav">
+    <button onclick="showCategory('iceCoffee')">Ice Coffee</button>
+    <button onclick="showCategory('hotCoffee')">Hot Coffee</button>
+    <button onclick="showCategory('coldDrinks')">Cold Drinks</button>
+    <button onclick="showCategory('breads')">Breads</button>
+</div>
+
+ 
+<div id="iceCoffee" class="slider-container" style="display:none;">
+            <div class="product-wrapper" id="productWrapperColdDrinks">
+                <div class="product-box">
+                    <img src="https://images.themodernproper.com/billowy-turkey/production/posts/IcedTea_8.jpg?w=600&q=82&auto=format&fit=crop&dm=1716306653&s=d23f7043a7240a0931ffb1efcdbba072" alt="Iced Tea">
+                    <h3>Iced Tea</h3>
+                    <span>₱85</span>
+                    <button onclick="addToCart('Iced Tea', 85, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://www.eatingwell.com/thmb/CokPYaf2YPnPACHBls_LVhyUp0g=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/healthy-breakfast-smoothie-8029983-4000x4000-3e02d40929c8410c877a171a235c99bc.jpg" alt="Smoothie">
+                    <h3>Smoothie</h3>
+                    <span>₱80</span>
+                    <button onclick="addToCart('Smoothie', 80, 'cold_drinks2.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN9l75rAU88oMozXXxdcOI35-YQxvWPoxPfA&s" alt="Iced Latte">
+                    <h3>Iced Latte</h3>
+                    <span>₱60</span>
+                    <button onclick="addToCart('Iced Latte', 60, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOVs_xyc3P-9qiEKpPAAICiyBsO6SHfYkL4w&s" alt="Iced Americano">
+                    <h3>Iced Americano</h3>
+                    <span>₱85</span>
+                    <button onclick="addToCart('Iced Americano', 85, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Hrnw9MaXglc99Xxpjjsgpz93IBo5btmrwg&s" alt="Iced Mocha">
+                    <h3>Iced Mocha</h3>
+                    <span>₱55</span>
+                    <button onclick="addToCart('Iced Mocha', 55, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F9eada0d203bfb580d801b478edd553465c7afb52" alt="Cold Brew Coffee">
+                    <h3>Cold Coffee</h3>
+                    <span>₱80</span>
+                    <button onclick="addToCart('Cold Brew Coffee', 80, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://www.cleaneatingkitchen.com/wp-content/uploads/2023/06/Iced-Mocha-two-glasses-300x450.jpg" alt="Milkshake">
+                    <h3>Iced Mocha</h3>
+                    <span>₱70</span>
+                    <button onclick="addToCart('Iced Mocha', 70, 'cold_drinks1.jpg')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="hotCoffee" class="slider-container" style="display:none;">
+            <div class="product-wrapper" id="productWrapperHotCoffee">
+                <div class="product-box">
+                    <img src="https://homeproeg.com/cdn/shop/files/54f9659d39385f4345254846261df62d.png?v=1702998543" alt="Espresso">
+                    <h3>Espresso</h3>
+                    <span>₱80</span>
+                    <button onclick="addToCart('Espresso', 80, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCDtN3sSO3rACEkCNkKnwSlcs9pVbnBbIGtw&s" alt="Americano">
+                    <h3>Americano</h3>
+                    <span>₱95</span>
+                    <button onclick="addToCart('Americano', 95, 'hot_coffee2.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNbZUwgwXJUSWHsxSM9nEqbpB6fEKGKhY-cA&s" alt="Cappuccino">
+                    <h3>Cappuccino</h3>
+                    <span>₱150</span>
+                    <button onclick="addToCart('Cappuccino', 150, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBHt0l2mFsGl8-rgt8Dc1lEy35Yhjoe0oxOw&s" alt="Latte">
+                    <h3>Latte</h3>
+                    <span>₱160</span>
+                    <button onclick="addToCart('Latte', 160, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/2/2021/11/Mocha-1fc71f7.png?quality=90&resize=556,505" alt="Mocha">
+                    <h3>Mocha</h3>
+                    <span>₱180</span>
+                    <button onclick="addToCart('Mocha', 180, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://www.kitchenstuffplus.com/media/catalog/product/9/5/95275_KSP_MacChiato_Glass_Coffee_Mug___Set_of_4__Clear_2.jpg?width=2000&height=&canvas=2000,&optimize=high&fit=bounds" alt="Macchiato">
+                    <h3>Macchiato</h3>
+                    <span>₱140</span>
+                    <button onclick="addToCart('Macchiato', 140, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBnRFzY2Jqv5U5XCx6xJ6yRhY0ELoD2OKRPA&s" alt="Cortado">
+                    <h3>Cortado</h3>
+                    <span>₱150</span>
+                    <button onclick="addToCart('Cortado', 150, 'hot_coffee1.jpg')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="breads" class="slider-container" style="display:none;">
+    <div class="product-wrapper" id="productWrapperBreads">
+        <div class="product-box">
+            <img src="https://sarahsvegankitchen.com/wp-content/uploads/2024/05/Vegan-Croissants-1.jpg" alt="Croissant">
+            <h3>Croissant</h3>
+            <span>₱25</span>
+            <button onclick="addToCart('Croissant', 25, 'bread1.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://bakingamoment.com/wp-content/uploads/2020/06/IMG_8813-bagel-recipe.jpg" alt="Bagel">
+            <h3>Bagel</h3>
+            <span>₱30</span>
+            <button onclick="addToCart('Bagel', 30, 'bread2.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://schoolnightvegan.com/wp-content/uploads/2024/08/vegan-cinnamon-rolls-34.jpg" alt="Cinnamon Rolls">
+            <h3>Cinnamon Rolls</h3>
+            <span>₱15</span>
+            <button onclick="addToCart('Cinnamon Rolls', 15, 'bread1.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzkvyazFK9Ko25nnqx97N20u2jmjrV9NHbbQ&s" alt="Brioche">
+            <h3>Brioche</h3>
+            <span>₱80</span>
+            <button onclick="addToCart('Brioche', 80, 'bread1.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsNnEo1-nNdk5UEssUgyDFkaiNDrfbIxMnbYVLeGL2IX2g0sjrVOUNpcSrQRLnANxHOJQ&usqp=CAU" alt="Scone">
+            <h3>Scone</h3>
+            <span>₱60</span>
+            <button onclick="addToCart('Scone', 60, 'bread1.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://i0.wp.com/www.pardonyourfrench.com/wp-content/uploads/2023/04/French-Almond-Croissants-Bakery-Style-8.jpg?resize=585%2C585&ssl=1" alt="Almond Croissant">
+            <h3>AlmondCroissant</h3>
+            <span>₱80</span>
+            <button onclick="addToCart('Almond Croissant', 80, 'bread1.jpg')">Add to Cart</button>
+        </div>
+        <div class="product-box">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ95-8ZGnMROZbw2jQmaE9h_Nax8QVDarlgQ&s" alt="Focaccia">
+            <h3>Focaccia</h3>
+            <span>₱100</span>
+            <button onclick="addToCart('Focaccia', 100, 'bread1.jpg')">Add to Cart</button>
+        </div>
+    </div>
+</div>
+    
+        <div id="coldDrinks" class="slider-container" style="display:none;">
+            <div class="product-wrapper" id="productWrapperIceCoffee">
+                <div class="product-box">
+                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ba77b26b-0253-410a-b634-327eb51e86e5/d1tm5b4-297cac60-efb3-430d-a73f-d822d03c438c.jpg/v1/fill/w_400,h_598,q_75,strp/ice_cold_lokal_by_reybronx_d1tm5b4-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTk4IiwicGF0aCI6IlwvZlwvYmE3N2IyNmItMDI1My00MTBhLWI2MzQtMzI3ZWI1MWU4NmU1XC9kMXRtNWI0LTI5N2NhYzYwLWVmYjMtNDMwZC1hNzNmLWQ4MjJkMDNjNDM4Yy5qcGciLCJ3aWR0aCI6Ijw9NDAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.V_tCbX298TjZq3LqlCaZzCiBepfBIM6Eabj9xRvw3V4" alt="Iced Coffee">
+                    <h3>San Miguel Pale</h3>
+                    <span>₱55</span>
+                    <button onclick="addToCart('San Miguel Pale Pilsen', 55, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://lh3.googleusercontent.com/lYmTKljQcMc_eG3z6sqUByUjKA1Iub7R-YrIfKpqzke6n6X5guBsvMk5C5wrDewvsIo6NvKv096mSr98QSbCiZI=s900" alt="Caramel Iced Coffee">
+                    <h3>San Miguel</h3>
+                    <span>₱60</span>
+                    <button onclick="addToCart('San Miguel Light', 60, 'ice_coffee2.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/92fa9fe6-6537-4575-a473-5168d20a5af2/d66o9pb-5f9cd4e4-c0da-4328-ba3e-4f203553837d.jpg/v1/fill/w_1024,h_1536,q_75,strp/red_horse_beer_by_kristianjaker_d66o9pb-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzkyZmE5ZmU2LTY1MzctNDU3NS1hNDczLTUxNjhkMjBhNWFmMlwvZDY2bzlwYi01ZjljZDRlNC1jMGRhLTQzMjgtYmEzZS00ZjIwMzU1MzgzN2QuanBnIiwiaGVpZ2h0IjoiPD0xNTM2Iiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uud2F0ZXJtYXJrIl0sIndtayI6eyJwYXRoIjoiXC93bVwvOTJmYTlmZTYtNjUzNy00NTc1LWE0NzMtNTE2OGQyMGE1YWYyXC9rcmlzdGlhbmpha2VyLTQucG5nIiwib3BhY2l0eSI6OTUsInByb3BvcnRpb25zIjowLjQ1LCJncmF2aXR5IjoiY2VudGVyIn19.rX_7knC586PoOxmDbHU9ZLYRKjnN6T-PDJ0xqD-ecLI" alt="Red Horse Beer">
+                    <h3>Red Horse Beer</h3>
+                    <span>₱90</span>
+                    <button onclick="addToCart('Red Horse Beer', 90, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://down-ph.img.susercontent.com/file/1c5c3b5ae0b7afd6b1bee5d31b656a53" alt="Tanduay Ice">
+                    <h3>Tanduay Ice</h3>
+                    <span>₱75</span>
+                    <button onclick="addToCart('Tanduay Ice', 75, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://images.pexels.com/photos/2286972/pexels-photo-2286972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Corona Extra">
+                    <h3>Corona Extra</h3>
+                    <span>₱100</span>
+                    <button onclick="addToCart('Corona Extra', 100, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSseOIL4rcn2A2Cb4tMNQ7KbHAO9EPTEPtNDjmOVPye3oo2sNlwJCbpFJVhUDy-kqOmwns&usqp=CAU" alt="Alcopops">
+                    <h3>Alcopops</h3>
+                    <span>₱70</span>
+                    <button onclick="addToCart('Alcopops', 70, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+                <div class="product-box">
+                    <img src="https://blog.engkanto.com.ph/hubfs/MicrosoftTeams-image%20%2820%29.png" alt="Mango Beer">
+                    <h3>Mango Beer</h3>
+                    <span>₱85</span>
+                    <button onclick="addToCart('Mango Beer', 85, 'ice_coffee1.jpg')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+          <script>
+        let cart = [];
+
+        function addToCart(itemName, itemPrice) {
+            const item = {
+                name: itemName,
+                price: itemPrice,
+            };
+
+            cart.push(item);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartItemCount = document.getElementById('cartItemCount');
+            const totalPriceElement = document.getElementById('totalPrice');
+
+            cartItemsContainer.innerHTML = '';
+            let totalPrice = 0;
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                const cartItemImage = document.createElement('img');
+                cartItemImage.src = item.image;
+                cartItemImage.alt = item.name;
+
+                const cartItemDetails = document.createElement('div');
+                cartItemDetails.classList.add('item-details');
+
+                const itemName = document.createElement('p');
+                itemName.textContent = item.name;
+
+                const itemPrice = document.createElement('p');
+                itemPrice.classList.add('item-price');
+                itemPrice.textContent = `₱${item.price.toFixed(2)}`;
+
+                cartItemDetails.appendChild(itemName);
+                cartItemDetails.appendChild(itemPrice);
+
+                cartItem.appendChild(cartItemDetails);
+
+                cartItemsContainer.appendChild(cartItem);
+
+                totalPrice += item.price;
+            });
+
+            cartItemCount.textContent = cart.length;
+            totalPriceElement.textContent = `Total: ₱${totalPrice.toFixed(2)}`;
+        }
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.style.display = cartModal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function checkout() {
+            alert("Proceeding to checkout!");
+            cart = []; 
+            updateCart(); 
+            toggleCart();
+        }
+
+        function showCategory(category) {
+            const categories = ['iceCoffee', 'hotCoffee', 'coldDrinks', 'breads'];
+            categories.forEach(cat => {
+                const categoryDiv = document.getElementById(cat);
+                if (cat === category) {
+                    categoryDiv.style.display = 'block';
+                } else {
+                    categoryDiv.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+
+
