@@ -1,0 +1,436 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(https://cdnb.artstation.com/p/assets/images/images/011/676/781/original/pixel-jeff-cafe.gif?1530807813);
+    font-family: Arial, sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+header {
+  
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+header nav ul li a {
+    color: #cd853f ;
+    text-decoration: none;
+    font-size: 30px;
+    padding: 30px;
+    font-weight: bold;
+    font-family: Brush Script MT;
+}
+
+header li a:hover {
+    background-color: #6f4e37;
+    border-radius: 500px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.flex-container.bottom-row {
+    margin-top: 50px;
+    padding: 0 20px;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+}
+
+.center-box {
+    display: inline-block;
+    border-radius: 9px;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+    width: 270px; 
+    height: 290px;
+    transition: all 0.3s ease; 
+    border: 4px solid #644117;
+    backdrop-filter: blur(55px);
+}
+
+.center-box {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    object-fit: cover;
+    object-position: center;
+}
+.image-container {
+    width: 290px; /* Adjust container size */
+    height: 305px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    position: relative;
+
+}
+
+.center-box .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    object-position: center;
+
+}
+.center-box:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.side-box {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease; 
+    font-family: Lucida Handwriting;
+    border: 4px solid #644117;
+    backdrop-filter: blur(20px);
+
+}
+
+.side-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.side-box p {
+    font-size: 20px;
+    color: #e3a857;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.side-box:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 100px 100px rgba(0, 0, 0, 0.2); 
+}
+
+@media screen and (max-width: 768px) {
+    .flex-container {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+.side-box, .center-box {
+        width: 80%;
+        margin: 20px 0;
+    }
+}
+
+.form-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.form-container {
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    border: 6px solid #b87333 ;
+    backdrop-filter: blur(50px);
+}
+
+.form-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color:#fadfad ;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.form-container label {
+    font-size: 15px;
+    color:#ffdead  ;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 4px solid #3d2b1f ;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+}
+
+.form-container .submit-btn {
+    background-color: #6f4e37;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.form-container .submit-btn:hover {
+    background-color: #5a3c2f;
+}
+
+}
+ .form-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 57vh;
+    width: 100%;
+}
+
+
+#about-us-section {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0;
+}
+
+#about-us-section::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: rgba(0, 0, 0, 0.5); 
+}
+
+.about-us-container {
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(8px); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-container h1, h2 {
+    color: #e3a857;
+}
+.contact-container h3 {
+    color: #3d0c02;
+}
+
+.about-us-container p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #c19a6b ;
+}
+
+#contact-us-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 20px;
+    position: relative;
+    height: 200px; 
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.contact-left {
+    width: 40%;
+    padding: 15px;
+    background-color: #d2b48c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-sizing: border-box; 
+    transition: all 0.3s ease; 
+}
+.contact-left:hover {
+    transform: scale(1.05); 
+    background-color: #a67b5b; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+
+.contact-left {
+    text-align: left;
+}
+
+.contact-left h3  {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.contact-left p {
+    font-size: 14px;
+    line-height: 1.4;
+}
+.logo {
+
+    height: 65px;
+    width: 65px; 
+    margin-right: 112px; 
+    margin-top: 7px;
+    margin-left: 16px;
+
+
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.low-center-box {
+    display: inline-block;
+    text-align: center;
+    background-color: #;
+    padding: 20px;
+    border-radius: 9px;
+    box-shadow: 0 50px 50px rgba(0, 0, 0, 0.1);
+    width: 250px; 
+    transition: all 0.3s ease; 
+    border: 4px solid #644117;
+    backdrop-filter: blur(55px);
+}
+
+.low-center-box .low-image-container {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.low-center-box .low-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.low-center-box h1 {
+    font-size: 20px; 
+    color: #e3a857;
+    font-family: Lucida Handwriting;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.low-center-box:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.owner-container {
+     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 795px;
+    right: 0;
+    padding: 10px;
+    height: 115%;
+
+}
+.owner-box {
+     width: 40%;
+    padding: 15px;
+    background-color: #d2b48c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-sizing: border-box; 
+    transition: all 0.3s ease; 
+}
+.owner-box:hover{
+    transform: scale(1.05); 
+    background-color: #a67b5b; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+}
+.owner-box h3{
+    color: #3d0c02;
+    text-align: left; 
+}
+.owners {
+    display: flex;
+    justify-content: center; 
+    gap: 20px; 
+}
+
+.owner {
+    text-align: center;
+}
+
+.owner-picture {
+    width: 122px;
+    height: 120px;
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 5px solid #644117;
+}
+
+.owner-name {
+    font-family: Andale monospace;
+    padding: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: ##592720; 
