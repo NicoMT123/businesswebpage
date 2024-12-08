@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="ncmt.css">
+    <script>
+        function validateRegistration(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('register-username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('register-password').value.trim();
+            const confirmPassword = document.getElementById('confirm-password').value.trim();
+
+
+            if (username === "" || email === "" || password === "" || confirmPassword === "") {
+                alert("All fields are required!");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+           
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long!");
+                return false;
+            }
+
+          
+            localStorage.setItem('user', JSON.stringify({ username: username, email: email, password: password }));
+            alert("Registration successful! Please log in.");
+            window.location.href = "ncmtlogin.html"; 
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><img src="sidelogov2.png" alt="Logo" class="logo"></a>
+                <li><a href="index.html">Home</a></li>
+                <li></li>
+                <li><a href="ncmtaboutus.html">About Us</a></li>
+                <li></li>
+                <li><a href="ncmtmenu.html">Our Selections</a></li>
+                <li></li>
+                <li><a href="ncmtlogin.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="register-section" class="form-section">
+        <div class="form-container">
+            <h2>- Register -</h2>
+            <form action="#" method="post" onsubmit="return validateRegistration(event)">
+                <label for="register-username">Username:</label>
+                <input type="text" id="register-username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required>
+
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+
+                <button type="submit" class="submit-btn">Register</button>
+                <h1>Already have an account? Login <a href="ncmtlogin.html">here</a></h1>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
