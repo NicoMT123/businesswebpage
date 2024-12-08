@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="ncmt.css">
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+
+
+            if (username === "" || password === "") {
+                alert("Both fields are required!");
+                return false;
+            }
+
+      
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (!storedUser) {
+                alert("No registered users found! Please register first.");
+                return false;
+            }
+
+            if (storedUser.username === username && storedUser.password === password) {
+                alert("Login successful!");
+                window.location.href = "ncmtmenu.html";
+            } else {
+                alert("Incorrect username or password! Please try again.");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><img src="sidelogov2.png" alt="Logo" class="logo"></a>
+                <li><a href="index.html">Home</a></li>
+                <li></li>
+                <li><a href="ncmtaboutus.html">About Us</a></li>
+                <li></li>
+                <li><a href="ncmtmenu.html">Our Selections</a></li>
+                <li></li>
+                <li><a href="ncmtregister.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="login-section" class="form-section">
+        <div class="form-container">
+            <h2>- Login -</h2>
+            <form action="#" method="post" onsubmit="return validateLogin(event)">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="username" required>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password" required>
+
+                <button type="submit" class="submit-btn">Login</button>
+                <h1>Don't have an account? Register<a href="ncmtregister.html">here</a></h1>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
